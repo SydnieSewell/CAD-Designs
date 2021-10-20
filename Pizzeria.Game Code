@@ -1,0 +1,114 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+public class Pizzeria
+{
+    public static void main(String[] args)
+    {
+        int numberOfPizzasOrdered=0;
+        int numberOfCurrentPizza = 1;
+        double roundoff;
+        double tax=2.0;
+        Scanner input = new Scanner(System.in);
+        Scanner numberOfpizzasorderedscanner = new Scanner(System.in);
+
+        boolean startordering;
+
+        System.out.println("WELCOME TO THE PIZZA GALLERIA Online Ordering System !");
+        System.out.println("A OPEN SERVER IS READY TO HELP YOU ");
+        System.out.println("===================");
+        System.out.println("Are you ready to Order ?");
+        String choice = input.nextLine();
+        if (choice.equalsIgnoreCase("yes")) {
+            startordering = true;
+        } else
+            startordering = false;
+
+        int i = 0;
+
+        if (startordering)
+        {
+            System.out.print("Enter number of Pizza Orders: ");
+            numberOfPizzasOrdered =  numberOfpizzasorderedscanner.nextInt();
+            System.out.println(" ");
+            while (i < numberOfPizzasOrdered)
+            {
+                System.out.println("Enter Details of Pizza Order " + numberOfCurrentPizza + ":");
+                System.out.println("===================");
+
+                System.out.println("Please Enter your name for the Order : ");
+                String name = input.nextLine();
+                System.out.println("Please Enter you address : ");
+                String address=input.nextLine();
+                System.out.print("Please Enter a phone number : ");
+                BigInteger number = input.nextBigInteger();
+                System.out.println(" ");
+                System.out.println("Please Enter whether This is Delivery or Pickup : ");
+                System.out.println( " * "+"Note that delivery is $3.00 more but Pick-Up is free " + " *");
+                String Deliverytype = input.next();
+                System.out.println("Please select if you are paying with Cash or a Credit Card ");
+                String PaymentType=input.next();
+                for(int k=0;k<=numberOfPizzasOrdered-1;k++)
+                {
+                    System.out.println("For Pizza " + numberOfCurrentPizza + ":");
+                    System.out.println("===================");
+                    System.out.println("Please select what type of pizza you want for order number  : " + numberOfCurrentPizza);
+                    System.out.println("We have  the following :");
+                    System.out.println("Hawaiian($12.99");
+                    System.out.println("Supreme($15.99)");
+                    System.out.println("Pepporoni ($12.99)");
+                    System.out.println("Buffalo ($12.99)");
+                    String order = input.next();
+                    System.out.println(" ");
+                    System.out.println("Details of Pizza Order " + numberOfCurrentPizza + ":");
+                    System.out.println("=======================");
+                    System.out.println("Name: " + name);
+                    System.out.println("Address :" + address);
+                    System.out.println("Phone: " + number);
+                    System.out.println("Order: " + order);
+                    System.out.println("Type(Pick-up or Delivery): " + extraCost(Deliverytype));
+                    System.out.println(" ");
+                    System.out.println("Payment method: " + PaymentType);
+                    System.out.println("The tax on this is " + "$" + tax);
+
+                    double priceOfpizza=determinePrice(order)+extraCost(Deliverytype);
+                    double totalOrder=priceOfpizza+tax;
+                    roundoff = Math.round(totalOrder);
+                    System.out.println("The Total price of your order is  :" + "$" + roundoff );
+                    System.out.println(" ");
+                   numberOfCurrentPizza = numberOfCurrentPizza + 1;
+                   i++;
+                }
+                System.out.println("Thank you For Ordering with our Pizza Galleria System , We thank you for picking us ");
+            }
+        }
+    }
+
+    private static double determinePrice(String order)
+    {
+        double price;
+        if (order.equalsIgnoreCase("Hawaiian")) ;
+        {
+            price = 12.99;
+        }
+        if (order.equalsIgnoreCase("Buffalo")) {
+            price = 15.99;
+        } else if (order.equalsIgnoreCase("Supreme")) {
+            price = 15.99;
+        } else if (order.equalsIgnoreCase("Pepperoni")) {
+            price = 14.99;
+        }
+        return price;
+    }
+
+    private static double extraCost(String deliverytype)
+    {
+        double deliveryCost = 0;
+        if (deliverytype.equalsIgnoreCase("Pickup")) {
+            deliveryCost = 0;
+        }
+        if (deliverytype.equalsIgnoreCase("Delivery")) {
+            deliveryCost = 3.00;
+        }
+        return deliveryCost;
+    }
+}
